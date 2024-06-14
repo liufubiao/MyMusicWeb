@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>InstantAndDuration.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #629755; font-style: italic;}
+.s3 { color: #808080;}
+.s4 { color: #6897bb;}
+.s5 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+InstantAndDuration.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java.time.*</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">InstantAndDuration {</span>
+    <span class="s2">/**时间戳 和时间间隔 持续的时间*/</span>
+    <span class="s0">public static void </span><span class="s1">main(String[] args) {</span>
+        <span class="s1">instant()</span><span class="s0">;</span><span class="s3">//计算总秒数的时间线/戳</span>
+        <span class="s1">period()</span><span class="s0">;</span><span class="s3">//计算时间段 时间间隔</span>
+        <span class="s1">duration()</span><span class="s0">;</span><span class="s3">//计算持续时间  天时分秒毫秒纳秒的间隔计算</span>
+        <span class="s2">/**</span>
+         <span class="s2">* public static Duration between(开始时间对象1,截止时间对象2)</span>
+         <span class="s2">*/</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private static void </span><span class="s1">duration() {</span>
+        <span class="s2">/**计算一个时间对象持续到另一个时间对象的持续时间*/</span>
+        <span class="s2">/**计算两个时间对象相差的天数、小时数、分数、秒数、纳秒数；支持LocalTime、LocalDateTime、Instant等</span>
+         <span class="s2">*</span>
+         <span class="s2">*/</span>
+        <span class="s1">LocalDateTime localDateTime = LocalDateTime.of(</span><span class="s4">2001</span><span class="s0">, </span><span class="s4">6</span><span class="s0">, </span><span class="s4">13</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">32</span><span class="s0">, </span><span class="s4">55</span><span class="s0">, </span><span class="s4">4000000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalDateTime now = LocalDateTime.now()</span><span class="s0">;</span>
+        <span class="s1">Duration between = Duration.between(localDateTime</span><span class="s0">, </span><span class="s1">now)</span><span class="s0">;</span>
+        <span class="s0">long </span><span class="s1">days = between.toDays()</span><span class="s0">;</span><span class="s3">//持续的天数</span>
+        <span class="s1">System.out.println(days)</span><span class="s0">;</span>
+        <span class="s0">long </span><span class="s1">hours = between.toHours()</span><span class="s0">;</span>
+        <span class="s1">System.out.println(hours)</span><span class="s0">;</span><span class="s3">//持续的小时数</span>
+        <span class="s0">long </span><span class="s1">minutes = between.toMinutes()</span><span class="s0">;</span><span class="s3">//持续的分钟</span>
+        <span class="s1">System.out.println(minutes)</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+    <span class="s0">private static void </span><span class="s1">period() {</span>
+        <span class="s2">/**-------------------可以用于计算两个 LocalDate对象 相差的年数、月数、天数--*/</span>
+        <span class="s1">LocalDateTime localDateTime = LocalDateTime.of(</span><span class="s4">2001</span><span class="s0">, </span><span class="s4">6</span><span class="s0">, </span><span class="s4">13</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">32</span><span class="s0">, </span><span class="s4">55</span><span class="s0">, </span><span class="s4">4000000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalDateTime now = LocalDateTime.now()</span><span class="s0">;</span>
+        <span class="s1">LocalDate localDate = localDateTime.toLocalDate()</span><span class="s0">;</span>
+        <span class="s1">LocalDate localDate1 = now.toLocalDate()</span><span class="s0">;</span>
+        <span class="s1">Period between = Period.between(localDate</span><span class="s0">, </span><span class="s1">localDate1)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">years = between.getYears()</span><span class="s0">;</span>
+        <span class="s1">System.out.println(years)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">months = between.getMonths()</span><span class="s0">;</span>
+        <span class="s1">System.out.println(months)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">days = between.getDays()</span><span class="s0">;</span>
+        <span class="s1">System.out.println(days)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private static void </span><span class="s1">instant() {</span>
+        <span class="s2">/**------Instant对象的作用：做毫秒级代码的性能分析，或者记录用户的操作时间点----------*/</span>
+        <span class="s1">Instant instant = Instant.now()</span><span class="s0">;</span><span class="s3">//获取时间戳/线 对象</span>
+        <span class="s1">System.out.println(instant.getEpochSecond())</span><span class="s0">;</span><span class="s2">/**获取从1970年 1月1日 00:00:00 到现在的总秒数*/</span>
+        <span class="s0">long </span><span class="s1">epochSecond1 = instant.getEpochSecond()</span><span class="s0">;</span>
+        <span class="s1">System.out.println(instant.getNano())</span><span class="s0">;</span><span class="s3">//不到一秒的纳秒数 909000000纳秒 909毫秒</span>
+        <span class="s0">int </span><span class="s1">nano1 = instant.getNano()</span><span class="s0">;</span>
+        <span class="s2">/**</span>
+         <span class="s2">* 运行的代码============运行的代码</span>
+         <span class="s2">* 运行的代码============运行的代码</span>
+         <span class="s2">* 运行的代码============运行的代码</span>
+         <span class="s2">* 运行的代码============运行的代码</span>
+         <span class="s2">* 运行的代码============运行的代码</span>
+         <span class="s2">*/</span>
+        <span class="s1">Instant instant1 = Instant.now()</span><span class="s0">;</span><span class="s3">//获取时间戳/线 对象</span>
+        <span class="s0">long </span><span class="s1">epochSecond = instant1.getEpochSecond()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">nano = instant1.getNano()</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;程序运行的时间：&quot;</span><span class="s1">+(epochSecond-epochSecond1)+</span><span class="s5">&quot;.&quot;</span><span class="s1">+(nano-nano1))</span><span class="s0">;</span>
+
+
+<span class="s2">/**--------------------------------------------------------------------------------------------*/</span>
+        <span class="s1">Instant now1 = Instant.now()</span><span class="s0">;</span>
+        <span class="s3">// 代码执行。。。。</span>
+        <span class="s1">Instant now2 = Instant.now()</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

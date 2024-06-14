@@ -1,0 +1,256 @@
+<html>
+<head>
+<title>newLocalDateTime.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #629755; font-style: italic;}
+.s3 { color: #808080;}
+.s4 { color: #6897bb;}
+.s5 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+newLocalDateTime.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">sun.util.resources.LocaleData</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.time.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.time.format.DateTimeFormatter</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">newLocalDateTime {</span>
+
+    <span class="s0">public static void </span><span class="s1">main(String[] args) {</span>
+        <span class="s2">/**</span>
+         <span class="s2">* 时间格式化 format</span>
+         <span class="s2">* yyyy-MM-dd HH:mm:ss --/-- yyyy年MM月dd日 HH:mm:ss</span>
+         <span class="s2">* y年</span>
+         <span class="s2">* M月</span>
+         <span class="s2">* d日</span>
+         <span class="s2">* H时</span>
+         <span class="s2">* m分</span>
+         <span class="s2">* s秒</span>
+         <span class="s2">*/</span>
+        <span class="s2">/**---------------------javaNew LocalDateTime----java新时间-------------------*/</span>
+        <span class="s2">/**</span>
+         <span class="s2">* 1、设计更合理，功能丰富，使用更方便。</span>
+         <span class="s2">* 2、都是不可变对象，修改后会返回新的时间对象，不会丢失最开始的时间。</span>
+         <span class="s2">* 3、线程安全。</span>
+         <span class="s2">* 4、能精确到毫秒、纳秒。</span>
+         <span class="s2">*/</span>
+        <span class="s0">long </span><span class="s1">start = System.currentTimeMillis()</span><span class="s0">;</span><span class="s3">//long类型的时间毫秒值  获取系统当前时间毫秒值</span>
+        <span class="s1">LocalDate dateyMd=LocalDate.now()</span><span class="s0">;</span><span class="s3">//获取当前日期</span>
+        <span class="s1">LocalDate date=LocalDate.of(</span><span class="s4">2024</span><span class="s0">,</span><span class="s4">6</span><span class="s0">,</span><span class="s4">13</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//获取指定的日期</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;----Date=y=M=d:&quot;</span><span class="s1">+dateyMd)</span><span class="s0">;</span>
+        <span class="s2">/**----------- output:----Date=y=M=d:2024-05-01*/ </span><span class="s3">//年月日</span>
+        <span class="s2">/**---特点是用API对日期进行修改不会改变原来的日期对象。而是返回改变后的日期对象---*/</span>
+        <span class="s2">/**</span>
+         <span class="s2">* 1.获取年月日 get</span>
+         <span class="s2">* 2.修改日期 with</span>
+         <span class="s2">* 3.增加/减少日期的值</span>
+         <span class="s2">* 4.判断日期的先后/和是否相等  after before equals</span>
+         <span class="s2">*/</span>
+        <span class="s1">localDate(dateyMd</span><span class="s0">, </span><span class="s1">date)</span><span class="s0">;  </span><span class="s2">/**====================================================================1.LocalDate===========*/</span>
+        <span class="s1">localTime()</span><span class="s0">;               </span><span class="s2">/**====================================================================2.LocalTime===========*/</span>
+        <span class="s1">localDateTime()</span><span class="s0">;           </span><span class="s2">/**====================================================================3.LocalDateTime=======*/</span>
+        <span class="s2">/**--------------------LocalDate LocalTime LocalDateTime的转换-------------*/</span>
+        <span class="s1">LocalDate localDate = LocalDate.now()</span><span class="s0">;</span>
+        <span class="s1">LocalTime localTime = LocalTime.now()</span><span class="s0">;</span>
+        <span class="s1">LocalDateTime localDateTime = LocalDateTime.now()</span><span class="s0">;</span>
+        <span class="s1">transfer(localDate</span><span class="s0">,</span><span class="s1">localTime</span><span class="s0">,</span><span class="s1">localDateTime)</span><span class="s0">;</span><span class="s2">/**=====================================================4.transfer======================*/</span>
+        <span class="s2">/**=========获取时区对象 创建带时区的时间日期函数=========*/</span>
+        <span class="s3">//zoneid获取时区对象 ZoneDateTime的时候用来创建带时区的时间日期对象</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;java可获得时区：&quot;</span><span class="s1">+ZoneId.getAvailableZoneIds())</span><span class="s0">;</span>
+        <span class="s1">ZoneId nowZoneId = ZoneId.systemDefault()</span><span class="s0">;</span><span class="s3">//获取系统默认时区</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;系统默认当前全部的时区对象ID：&quot;</span><span class="s1">+nowZoneId)</span><span class="s0">;</span>
+        <span class="s2">/**----------ctrl+f控制台搜索 enter查找下一个--------------*/</span>
+        <span class="s3">//America/New_York 找到目标时区id字符串</span>
+        <span class="s1">ZoneId targetZoneId = ZoneId.of(</span><span class="s5">&quot;America/New_York&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s3">/////////////////////重要步骤////////////////////////</span>
+        <span class="s1">System.out.println(targetZoneId)</span><span class="s0">;</span>
+        <span class="s2">/**----------------------------------------------------------------------------*/</span>
+        <span class="s2">/**根据时区对象获取ZoneDateTime对象*/</span>
+        <span class="s1">zoneDateTime(targetZoneId)</span><span class="s0">; </span><span class="s2">/**====================================================================5.zoneDateTime=======*/</span>
+        <span class="s1">dateTimeFormatter()</span><span class="s0">;</span>
+        <span class="s0">long </span><span class="s1">end = System.currentTimeMillis()</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;程序运行毫秒值&quot;</span><span class="s1">+(end-start))</span><span class="s0">;</span>
+
+
+
+    <span class="s1">}</span>
+
+    <span class="s0">private static void </span><span class="s1">dateTimeFormatter() {</span>
+        <span class="s2">/**======pattern格式 模式*/</span>
+        <span class="s1">ZonedDateTime zonedDateTime = ZonedDateTime.now()</span><span class="s0">;</span>
+        <span class="s1">LocalDate localDate = LocalDate.now()</span><span class="s0">;</span>
+        <span class="s1">LocalTime localTime = LocalTime.now()</span><span class="s0">;</span>
+        <span class="s1">LocalDateTime localDateTime = LocalDateTime.now()</span><span class="s0">;</span>
+        <span class="s3">/*-------------------------------------------------*/</span>
+        <span class="s2">/**格式化时间对象localdate localtime localdatetime zonedatetime*/</span>
+        <span class="s1">DateTimeFormatter forMat = DateTimeFormatter.ofPattern(</span><span class="s5">&quot;yyyy年MM月dd日 HH时mm分ss秒&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">DateTimeFormatter yMdFormat = DateTimeFormatter.ofPattern(</span><span class="s5">&quot;yyyy年MM月dd日&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">DateTimeFormatter forMat1 = DateTimeFormatter.ofPattern(</span><span class="s5">&quot;HH时mm分ss秒&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">String format1 = zonedDateTime.format(forMat)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(format1)</span><span class="s0">;</span>
+        <span class="s1">String format2 = localDate.format(yMdFormat)</span><span class="s0">;</span><span class="s3">//无法使用&quot;yyyy年MM月dd日 HH时mm分ss秒&quot;的格式化器进行格式化 因为localDate没有时分秒毫秒</span>
+        <span class="s1">System.out.println(format2)</span><span class="s0">;</span>
+        <span class="s1">String format3 = localTime.format(forMat1)</span><span class="s0">;</span><span class="s3">//无法使用&quot;yyyy年MM月dd日 HH时mm分ss秒&quot;的格式化器进行格式化 因为localtime没有年月日</span>
+        <span class="s1">System.out.println(format3)</span><span class="s0">;</span>
+        <span class="s2">/**解析时间字符串   时间字符串解析为时间对象*/</span>
+        <span class="s1">LocalDateTime parse = LocalDateTime.parse(format1</span><span class="s0">, </span><span class="s1">forMat)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;parse解析后的时间对象&quot;</span><span class="s1">+parse)</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+    <span class="s0">private static void </span><span class="s1">zoneDateTime(ZoneId targetZoneId) {</span><span class="s3">//获取别的时区的日期和时间</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;-----带时区的日期时间对象ZoneDateTime比起LocalDateTime多了一个时区之外是一样的&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">ZonedDateTime nowzonedDateTime = ZonedDateTime.now()</span><span class="s0">;</span><span class="s3">//默认当前时区的时间日期对象</span>
+        <span class="s2">/**获取当前时区的ZonedDateTime对象*/</span>
+         <span class="s1">ZonedDateTime  New_YorkDT= ZonedDateTime.now(targetZoneId)</span><span class="s0">;</span><span class="s3">//美国纽约时区的时间日期对象</span>
+        <span class="s2">/**获取指定时区的ZonedDateTime对象*/</span>
+        <span class="s2">/**</span>
+         <span class="s2">* 1.get获取时间日期系列的方法</span>
+         <span class="s2">* 2.with修改时间系列的方法</span>
+         <span class="s2">* 3.plus增加时间系列的方法</span>
+         <span class="s2">* 4.minus减少时间系列的方法</span>
+         <span class="s2">*/</span>
+         <span class="s3">//获得美国纽约的日期和时间信息</span>
+        <span class="s1">System.out.println(New_YorkDT)</span><span class="s0">;</span>
+        <span class="s2">/**=====get======*/</span>
+        <span class="s1">New_YorkDT.getYear()</span><span class="s0">;</span>
+        <span class="s1">New_YorkDT.getMonthValue()</span><span class="s0">;</span>
+        <span class="s1">New_YorkDT.getDayOfMonth()</span><span class="s0">;</span>
+        <span class="s1">New_YorkDT.getDayOfYear()</span><span class="s0">;</span>
+        <span class="s2">/**=====with=====*/</span>
+        <span class="s1">New_YorkDT.withDayOfMonth(</span><span class="s4">4</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">New_YorkDT.withNano(</span><span class="s4">5000000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">/**========plus minus=======*/</span>
+        <span class="s1">New_YorkDT.plusDays(</span><span class="s4">10</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">New_YorkDT.minusNanos(</span><span class="s4">60000000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">/**======equals isafter isbefore====*/</span>
+        <span class="s1">New_YorkDT.isAfter(nowzonedDateTime)</span><span class="s0">;</span>
+        <span class="s1">New_YorkDT.isBefore(nowzonedDateTime)</span><span class="s0">;</span>
+        <span class="s1">New_YorkDT.equals(nowzonedDateTime)</span><span class="s0">;</span>
+
+
+         <span class="s1">}</span>
+
+    <span class="s0">private static void </span><span class="s1">transfer(LocalDate localDate</span><span class="s0">, </span><span class="s1">LocalTime localTime</span><span class="s0">, </span><span class="s1">LocalDateTime localDateTime) {</span>
+        <span class="s2">/**</span>
+         <span class="s2">* 1.LocalDateTime转换成一个LocalDate对象</span>
+         <span class="s2">* 2.LocalDateTime转换成一个LocalTime对象</span>
+         <span class="s2">* 3.根据LocalDate，LocalTime创建LocalDateTime</span>
+         <span class="s2">*/</span>
+        <span class="s1">LocalDate localDate1 = localDateTime.toLocalDate()</span><span class="s0">;</span><span class="s3">//只保留日期部分 年月日</span>
+        <span class="s2">/**---转换为日期 toLocalDate()---------*/</span>
+        <span class="s1">LocalTime localTime1 = localDateTime.toLocalTime()</span><span class="s0">;</span><span class="s3">//只保留时间部分 时分秒纳秒</span>
+        <span class="s2">/**--转换为新时间 toLocalTime()--------*/</span>
+        <span class="s1">LocalDateTime of = LocalDateTime.of(localDate</span><span class="s0">, </span><span class="s1">localTime)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(of)</span><span class="s0">;</span><span class="s3">//合并创建</span>
+        <span class="s2">/**</span>
+         <span class="s2">* public static LocalDateTime of(LocalDate date, LocalTime time) 根据LocalDate LocalTime创建LocalDateTime对象</span>
+         <span class="s2">* */</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">private static void </span><span class="s1">localDateTime() {</span>
+        <span class="s2">/**----------------java 日期时间  LocalDateTime--------------*/</span>
+        <span class="s1">LocalDateTime now = LocalDateTime.now()</span><span class="s0">;</span><span class="s3">//当前时间日期 年月日 时分秒毫秒</span>
+        <span class="s1">LocalDateTime of = LocalDateTime.of(</span><span class="s4">2001</span><span class="s0">, </span><span class="s4">6</span><span class="s0">, </span><span class="s4">13</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">30</span><span class="s0">, </span><span class="s4">59</span><span class="s0">, </span><span class="s4">5000000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(of)</span><span class="s0">;</span>
+        <span class="s2">/**------------------get---------------------*/</span>
+        <span class="s1">now.getYear()</span><span class="s0">;</span><span class="s3">//年</span>
+        <span class="s1">now.getMonthValue()</span><span class="s0">;</span><span class="s3">//月</span>
+        <span class="s1">now.getDayOfMonth()</span><span class="s0">;</span><span class="s3">//日</span>
+        <span class="s1">now.getDayOfYear()</span><span class="s0">;</span><span class="s3">//日</span>
+        <span class="s1">now.getDayOfWeek()</span><span class="s0">;</span><span class="s3">//日</span>
+        <span class="s1">now.getHour()</span><span class="s0">;</span><span class="s3">//时</span>
+        <span class="s1">now.getMinute()</span><span class="s0">;</span><span class="s3">//分</span>
+        <span class="s1">now.getSecond()</span><span class="s0">;</span><span class="s3">//秒</span>
+        <span class="s1">now.getNano()</span><span class="s0">;</span><span class="s3">//纳秒 （以毫秒显示）</span>
+        <span class="s2">/**------plus / minus--------------------*/</span>
+        <span class="s1">LocalDateTime localDateTime = now.plusYears(</span><span class="s4">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalDateTime localDateTime1 = now.plusNanos(</span><span class="s4">5000000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalDateTime localDateTime2 = now.minusYears(</span><span class="s4">2</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s3">//增加或者减少时间日期 减少年月日 时分秒纳秒</span>
+        <span class="s2">/**-------------------equals isafter isbefore ---------------------*/</span>
+        <span class="s1">LocalDateTime plusWeeks = now.plusWeeks(</span><span class="s4">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalDateTime minusWeeks = now.minusWeeks(</span><span class="s4">2</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(plusWeeks.isAfter(minusWeeks))</span><span class="s0">;</span>
+        <span class="s1">System.out.println(plusWeeks.isBefore(minusWeeks))</span><span class="s0">;</span>
+        <span class="s1">System.out.println(plusWeeks.equals(minusWeeks))</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+    <span class="s0">private static void </span><span class="s1">localTime() {</span>
+        <span class="s2">/**----------获取时间的=时分秒纳秒=的值--LocalTime--------------------*/</span>
+        <span class="s1">LocalTime now = LocalTime.now()</span><span class="s0">;</span><span class="s3">//获取当前时间值 17:45:09.627 时分秒毫秒</span>
+        <span class="s1">System.out.println(now)</span><span class="s0">;</span>
+        <span class="s1">LocalTime of = LocalTime.of(</span><span class="s4">23</span><span class="s0">, </span><span class="s4">10</span><span class="s0">, </span><span class="s4">43</span><span class="s1">)</span><span class="s0">;</span><span class="s2">/**--Invalid value for HourOfDay (valid values 0 - 23): 24--*/</span>
+        <span class="s3">//获取指定时间值</span>
+        <span class="s1">System.out.println(of)</span><span class="s0">;</span>
+        <span class="s2">/**--------------------------------------------------------------*/</span>
+        <span class="s0">int </span><span class="s1">hour = now.getHour()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">minute = now.getMinute()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">second = now.getSecond()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">nano = now.getNano()</span><span class="s0">;</span>
+        <span class="s1">System.out.println(nano)</span><span class="s0">;</span>
+        <span class="s2">/********with修改---------------------*/</span>
+        <span class="s1">LocalTime localTime = now.withHour(</span><span class="s4">18</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalTime localTime1 = now.withMinute(</span><span class="s4">59</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalTime localTime2 = now.withNano(</span><span class="s4">5000000</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//5 millis</span>
+        <span class="s1">System.out.println(localTime2)</span><span class="s0">;</span>
+        <span class="s2">/**--------------------------plus / minus--------------------*/</span>
+        <span class="s1">LocalTime localTime3 = now.plusMinutes(</span><span class="s4">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalTime minus = now.minusSeconds(</span><span class="s4">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalTime localTime4 = now.plusNanos(</span><span class="s4">60000000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(localTime4)</span><span class="s0">;</span>
+        <span class="s2">/**------------------------equals isAfter isBefore---------------------*/</span>
+        <span class="s1">LocalTime lplusNano = now.plusNanos(</span><span class="s4">3000000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalTime minusNano=now.minusNanos(</span><span class="s4">2000000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(lplusNano.isAfter(minusNano))</span><span class="s0">;</span>
+        <span class="s1">System.out.println(lplusNano.isBefore(minusNano))</span><span class="s0">;</span>
+        <span class="s1">System.out.println(lplusNano.equals(minusNano))</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+    <span class="s0">private static void </span><span class="s1">localDate(LocalDate dateyMd</span><span class="s0">, </span><span class="s1">LocalDate date) {</span>
+        <span class="s2">/**==============获取日期的年月日的值======LocalDate======*/</span>
+        <span class="s0">int </span><span class="s1">year = dateyMd.getYear()</span><span class="s0">;</span><span class="s3">//获取年份</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;年:&quot;</span><span class="s1">+year)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">monthValue = dateyMd.getMonthValue()</span><span class="s0">;</span><span class="s3">//获取月份值</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;Month:&quot;</span><span class="s1">+monthValue)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">dayOfMonth = dateyMd.getDayOfMonth()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">dayOfYear = date.getDayOfYear()</span><span class="s0">;</span>
+        <span class="s1">DayOfWeek dayOfWeek = dateyMd.getDayOfWeek()</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;一个月的第几天：&quot;</span><span class="s1">+dayOfMonth+</span><span class="s5">&quot;一年的第几天：&quot;</span><span class="s1">+dayOfYear+</span><span class="s5">&quot;一个星期的第几天：&quot;</span><span class="s1">+dayOfWeek.getValue())</span><span class="s0">;</span>
+        <span class="s2">/**----with系列的修改日期的方法---------minute分钟 minus减去*/</span>
+        <span class="s1">LocalDate date1 = dateyMd.withYear(</span><span class="s4">2023</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;with修改年份后的日期：&quot;</span><span class="s1">+date1)</span><span class="s0">;</span>
+        <span class="s1">LocalDate date2 = dateyMd.withMonth(</span><span class="s4">7</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LocalDate date3 = dateyMd.withDayOfMonth(</span><span class="s4">5</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(date2+</span><span class="s5">&quot;</span><span class="s0">\r\n</span><span class="s5">&quot;</span><span class="s1">+date3)</span><span class="s0">;</span>
+        <span class="s2">/**------------增加/减少日期---------------*/</span>
+        <span class="s1">LocalDate date4 = date2.plusMonths(</span><span class="s4">2</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//增加了2个月 2月-》4月 2+2</span>
+        <span class="s1">LocalDate date5 = date2.plusYears(</span><span class="s4">1</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//增加年份</span>
+        <span class="s1">LocalDate date6 = date2.plusDays(</span><span class="s4">10</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//增加天数</span>
+        <span class="s1">LocalDate date7 = date2.minusMonths(</span><span class="s4">2</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//减少了2个月 2月-》4月 2+2</span>
+        <span class="s1">LocalDate date8 = date2.minusYears(</span><span class="s4">1</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//减少年份</span>
+        <span class="s1">LocalDate date9 = date2.minusDays(</span><span class="s4">10</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//增加天数</span>
+        <span class="s2">/**------判断日期的先后/和是否相等  after before equals------*/</span>
+        <span class="s1">LocalDate plusdate = dateyMd.plusDays(</span><span class="s4">10</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//+10day</span>
+        <span class="s1">LocalDate minusdate = dateyMd.minusDays(</span><span class="s4">10</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//-10day</span>
+        <span class="s2">/**日期是否相等 同一天*/ </span><span class="s3">//equals</span>
+        <span class="s1">System.out.println(plusdate.equals(minusdate))</span><span class="s0">;</span><span class="s3">//不是同一天</span>
+        <span class="s1">System.out.println(plusdate.isAfter(minusdate))</span><span class="s0">;</span><span class="s3">//plusdate在minusdate之后 true</span>
+        <span class="s1">System.out.println(minusdate.isBefore(plusdate))</span><span class="s0">;</span><span class="s3">//minusdate在plusdate之前 true</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
